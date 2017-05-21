@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="Card">
+    <Position X="15" Y="3.5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>IBBAAAAgAAAACAAQEgAAAAAAAQAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Card.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CardDeque">
+    <Position X="0.5" Y="4.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>ABBAAAAAgBAgCQFAAAACAAIEQRgAAAAFgAAAAAAAGAA=</HashCode>
+      <FileName>CardDeque.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CardStack">
+    <Position X="15" Y="0.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AABACAAAAAAAAAAAAAAAIAAAAAAAAAAAgACAAAAAAEA=</HashCode>
+      <FileName>CardStack.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="csCardStack" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Deck">
+    <Position X="4.5" Y="0.5" Width="3" />
+    <InheritanceLine Type="CardDeque" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="1.875" Y="4.75" />
+        <Point X="1.875" Y="2.312" />
+        <Point X="4.5" Y="2.312" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAiAAAABAAAAAQAAAEAAAQQgAAAAAgABAAAAACAA=</HashCode>
+      <FileName>Deck.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HomeStack">
+    <Position X="4.5" Y="4.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAAAAAAAAEQQgAAAAAgABAAAAACAA=</HashCode>
+      <FileName>HomeStack.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Column">
+    <Position X="4.5" Y="7.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAACAAEAgAAAAAFAEAAAQYgAgAAAgAAAAAAACAg=</HashCode>
+      <FileName>Column.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawCard">
+    <Position X="15" Y="7.5" Width="5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgIEAAAAAAAACAAAAIAAAOAAAAAAIAIImAAAIAAA=</HashCode>
+      <FileName>DrawCard.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Solitaire">
+    <Position X="8.25" Y="0.5" Width="5.25" />
+    <AssociationLine Name="Draw" Type="DrawCard" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="13.5" Y="5.562" />
+        <Point X="13.875" Y="5.562" />
+        <Point X="13.875" Y="10.062" />
+        <Point X="15" Y="10.062" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>gAAggCAEIIAAAhhAABEoCFACiAEAAACEMAFEAgIQAQA=</HashCode>
+      <FileName>Solitaire.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="Stack" />
+      <Field Name="Pile" />
+      <Field Name="Draw" />
+      <Field Name="Status" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Field Name="Foundation" />
+      <Field Name="Tableau" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="StatusBar">
+    <Position X="9.25" Y="8" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>ABAAACAAAAAkAAEAAAAgIAAAQAAABAAIAAgAEIAAAAA=</HashCode>
+      <FileName>StatusBar.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Typedef Name="CardPattern" Collapsed="true">
+    <Position X="19" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Card.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="CardNumber" Collapsed="true">
+    <Position X="20.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Card.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="CardLocation" Collapsed="true">
+    <Position X="22.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Solitaire.h</FileName>
+    </TypeIdentifier>
+    <AliasOfLine Type="card_locate" FixedFromPoint="true">
+      <Path>
+        <Point X="23.25" Y="1.5" />
+        <Point X="23.25" Y="1.312" />
+      </Path>
+    </AliasOfLine>
+  </Typedef>
+  <Enum Name="card_pattern">
+    <Position X="19" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAgAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAIAAA=</HashCode>
+      <FileName>Card.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="card_number">
+    <Position X="20.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAgAAAAAAIAAAIAAAAAAQIQBAgBAAEAAAAAAEAAA=</HashCode>
+      <FileName>Card.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="card_locate">
+    <Position X="22.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAAWgAAAAAAIAAAAAAAAAAAAAAAwDs=</HashCode>
+      <FileName>Solitaire.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

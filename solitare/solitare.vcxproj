@@ -142,6 +142,36 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Card.cpp" />
+    <ClCompile Include="CardDeque.cpp" />
+    <ClCompile Include="CardStack.cpp" />
+    <ClCompile Include="Column.cpp" />
+    <ClCompile Include="Deck.cpp" />
+    <ClCompile Include="DrawCard.cpp" />
+    <ClCompile Include="HomeStack.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Solitaire.cpp" />
+    <ClCompile Include="StatusBar.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Card.h" />
+    <ClInclude Include="CardDeque.h" />
+    <ClInclude Include="CardStack.h" />
+    <ClInclude Include="Column.h" />
+    <ClInclude Include="Deck.h" />
+    <ClInclude Include="DrawCard.h" />
+    <ClInclude Include="HomeStack.h" />
+    <ClInclude Include="includes.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="Solitaire.h" />
+    <ClInclude Include="StatusBar.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="solitare.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resource\card.bmp" />
+    <Image Include="resource\icon1.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
