@@ -77,7 +77,7 @@ HBITMAP Solitaire::GetDoubleBuffer(void)
 	return Draw->GetDoubleBuffer();
 }
 
-CardLocation Solitaire::TranslateAxis(unsigned int x, unsigned int y)
+CardLocation Solitaire::TranslateAxisDown(int x, int y)
 {
 	unsigned int i;
 	if (IS_INSIDE_CARD(x, y, DECK_LEFT_X, DECK_LEFT_Y))
@@ -103,6 +103,39 @@ CardLocation Solitaire::TranslateAxis(unsigned int x, unsigned int y)
 		}
 	}
 	return NOTHING;
+}
+
+int Solitaire::TranslateAxisUp(int x, int y, CardLocation * loc_arr)
+{
+	unsigned int i;
+	unsigned int cnt = 0;
+	if (IS_INSIDE_CARD(x, y, DECK_LEFT_X, DECK_LEFT_Y))
+	{
+		loc_arr[cnt] = DECK_STACK;
+		cnt++;
+	}
+	if (IS_INSIDE_CARD(x, y, DECK_RIGHT_X, DECK_RIGHT_Y))
+	{
+		loc_arr[cnt] = DECK_VISIBLE;
+		cnt++;
+	}
+	for (i = 0; i < 4; i++)
+	{
+		if (IS_AROUND_CARD(x, y, HOMESTACK_X(i), HOMESTACK_Y))
+		{
+			loc_arr[cnt] = (CardLocation)(HOMESTACK1 + i);
+			cnt++;
+		}
+	}
+	for (i = 0; i < 7; i++)
+	{
+		if (IS_AROUND_CARDC(x, y, COLUMN_X(i), COLUMN_Y, CARD_WIDTH, Tableau[i]->TotalCardHeight()))
+		{
+			loc_arr[cnt] = (CardLocation)(COLUMN1 + i);
+			cnt++;
+		}
+	}
+	return cnt;
 }
 
 bool Solitaire::CardDown(CardLocation location, unsigned int axis_x, unsigned int axis_y)
@@ -164,6 +197,7 @@ bool Solitaire::CardDown(CardLocation location, unsigned int axis_x, unsigned in
 
 bool Solitaire::CardUp(CardLocation location, unsigned int axis_y)
 {
+	bool failed = false;
 	if (PrevDeck == NULL)
 	{
 		return false;
@@ -178,12 +212,16 @@ bool Solitaire::CardUp(CardLocation location, unsigned int axis_y)
 			MovedDeck_From = PrevDeck;
 			MovedDeck_To = Pile;
 		}
+		else
+		{
+			failed = true;
+		}
 	}
 	else if (IS_IN_THIS_AREA(location, HOMESTACK1, HOMESTACK4))
 	{
 		if (Foundation[location - HOMESTACK1]->PutCard(MovingCard) == false)
 		{
-			if (PrevDeck != NULL)	PrevDeck->BackCard(MovingCard);
+			failed = true;
 		}
 		else
 		{
@@ -198,7 +236,7 @@ bool Solitaire::CardUp(CardLocation location, unsigned int axis_y)
 	{
 		if (Tableau[location - COLUMN1]->PutCard(MovingCard) == false)
 		{
-			if (PrevDeck != NULL)	PrevDeck->BackCard(MovingCard);
+			failed = true;
 		}
 		else
 		{
@@ -214,13 +252,16 @@ bool Solitaire::CardUp(CardLocation location, unsigned int axis_y)
 	}
 	else
 	{
-		if (PrevDeck != NULL) PrevDeck->BackCard(MovingCard);
+		failed = true;
 	}
 
-	MovingCard = NULL;
-	PrevDeck = NULL;
-	if (PrevDeck == NULL)	return false;
-	else					return true;
+	if (failed == true)	return false;
+	else
+	{
+		MovingCard = NULL;
+		PrevDeck = NULL;
+		return true;
+	}
 }
 
 bool Solitaire::CardDoubleClick(CardLocation location, unsigned int axis_y)
@@ -269,6 +310,20 @@ bool Solitaire::CardDoubleClick(CardLocation location, unsigned int axis_y)
 }
 
 bool Solitaire::CardBack(void)
+{
+	bool failed;
+	if ((PrevDeck == NULL)|| (MovingCard == NULL))
+	{
+		return false;
+	}
+
+	failed = PrevDeck->BackCard(MovingCard);
+	MovingCard = NULL;
+	PrevDeck = NULL;
+	return failed;
+}
+
+bool Solitaire::CardUndo(void)
 {
 	if (MovedDeck_To != NULL)
 	{

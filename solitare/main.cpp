@@ -59,7 +59,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 	HDC hdc, MemDC;
 	PAINTSTRUCT ps;
 	HBITMAP OldBitmap;
-	CardLocation axis;
+	CardLocation axis[4];
+	int axis_cnt;
 
 	switch (iMessage)
 	{
@@ -85,7 +86,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			}
 			return 0;
 		case ID_UNDO:
-			if (game->CardBack() == false)
+			if (game->CardUndo() == false)
 			{
 				game->GameInfo(TEXT("Warning: UNDO FAIL"));
 			}
@@ -106,8 +107,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 	case WM_RBUTTONDOWN:
 		return 0;
 	case WM_LBUTTONDBLCLK:
-		axis = game->TranslateAxis(LOWORD(lParam), HIWORD(lParam));
-		game->CardDoubleClick(axis, HIWORD(lParam));
+		axis[0] = game->TranslateAxisDown(LOWORD(lParam), HIWORD(lParam));
+		game->CardDoubleClick(axis[0], HIWORD(lParam));
 		game->DrawAll(hWnd);
 		return 0;
 	case WM_LBUTTONDOWN:
@@ -116,8 +117,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			SendMessage(hWnd, WM_LBUTTONUP, wParam, lParam);
 			return 0;
 		}
-		axis = game->TranslateAxis(LOWORD(lParam), HIWORD(lParam));
-		if (game->CardDown(axis, LOWORD(lParam), HIWORD(lParam)))
+		axis[0] = game->TranslateAxisDown(LOWORD(lParam), HIWORD(lParam));
+		if (game->CardDown(axis[0], LOWORD(lParam), HIWORD(lParam)))
 		{
 			bButtonOn = true;
 			cur_x = LOWORD(lParam);
@@ -131,8 +132,19 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		if (bButtonOn)
 		{
 			bButtonOn = false;
-			axis = game->TranslateAxis(LOWORD(lParam), HIWORD(lParam));
-			game->CardUp(axis, HIWORD(lParam));
+			axis_cnt = game->TranslateAxisUp(LOWORD(lParam), HIWORD(lParam), axis);
+			if(axis_cnt == 0)
+				game->CardBack();
+			else
+			{
+				for (; axis_cnt>0; axis_cnt--)
+				{
+					if (game->CardUp(axis[axis_cnt - 1], HIWORD(lParam)) == true)
+						break;
+					if (axis_cnt == 1)
+						game->CardBack();
+				}
+			}
 			game->UpdateCardAxis(0, 0);
 			game->DrawAll(hWnd);
 		}
