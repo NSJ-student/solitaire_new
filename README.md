@@ -8,6 +8,7 @@
 
 사용 목적: window default game 모방, 테스트로 만든 https://github.com/NSJ-student/solitaire 프로젝트 최종 정리
 
+# UI
 
 ![solitaire](https://user-images.githubusercontent.com/28644565/136659074-c41fdf52-6e29-42ef-8f78-2192318e27c8.png)
 
